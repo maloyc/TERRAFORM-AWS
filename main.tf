@@ -73,6 +73,19 @@ resource "aws_s3_bucket" "my_bucket" {
   }
 }
 
+# Create a folder in the S3 bucket     #########    #
+resource "aws_s3_bucket_object" "my_folder" {
+  bucket = aws_s3_bucket.my_bucket.id
+  key    = "my-folder/"  # Folder name; ensure it ends with a '/'
+  acl    = "private"     # Set the ACL as needed
+
+  # Optional: You can also specify metadata if desired
+  metadata = {
+    description = "This is a folder for storing files."
+  }
+}
+
+
 
 ################
 # Outputs to display information
@@ -91,3 +104,5 @@ output "instance_id" {
 output "instance_public_ip" {
   value = aws_instance.my_instance.public_ip
 }
+
+
